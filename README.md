@@ -1,5 +1,9 @@
 # database
 
+[![npm version](https://img.shields.io/npm/v/@kaze-no-manga/database.svg?style=flat)](https://www.npmjs.com/package/@kaze-no-manga/database)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Coverage Badge](https://img.shields.io/badge/coverage-100%25-brightgreen?style=flat)
+
 > Database schema, migrations, and utilities for Kaze no Manga
 
 ## Overview

@@ -1,13 +1,16 @@
 {
-  "name": "Database Developer",
-  "version": "1.0.0",
-  "description": "Specialized agent for Kaze no Manga database",
-  "instructions": "file:.kiro/steering/agent-prompt.md",
-  "context": [
-    "file:README.md",
-    "file:.kiro/steering/tech.md",
-    "file:.kiro/steering/conventions.md",
-    "file:.kiro/steering/migrations.md",
-    "file:.kiro/steering/dependencies.md"
-  ]
+  "name": "dev",
+  "description": "Specialized agent for Kaze no Manga modatabasedels package development",
+  "prompt": "file://../steering/agent-prompt.md",
+  "tools": ["read", "write", "shell", "web_search", "web_fetch", "introspect", "thinking", "code"],
+  "allowedTools": ["read", "shell", "web_search", "web_fetch", "introspect", "thinking", "code"],
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [".kiro/**", "lib/**", "test/**", "*.md"]
+    },
+    "shell": {
+      "autoAllowReadonly": true
+    }
+  },
+  "resources": ["file://README.md", "file://.kiro/specs/**/*.md", "file://.kiro/steering/**/*.md"]
 }
