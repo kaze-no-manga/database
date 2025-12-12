@@ -28,7 +28,6 @@ This repository contains the complete database schema, migration files, seed dat
 ```
 users
 ├── id (uuid, PK)
-├── cognito_id (text, unique)
 ├── email (text, unique)
 ├── name (text, nullable)
 ├── avatar (text, nullable)
@@ -38,46 +37,55 @@ users
 
 manga
 ├── id (uuid, PK)
+├── slug (text, unique)
 ├── title (text)
 ├── alt_titles (text[])
 ├── description (text, nullable)
-├── cover_image (text, nullable)
-├── status (enum: ongoing, completed, hiatus, cancelled)
+├── cover (text, nullable)
+├── status (enum: ONGOING, COMPLETED, HIATUS, CANCELLED)
 ├── genres (text[])
 ├── authors (text[])
 ├── year (integer, nullable)
-├── created_at (timestamp)
-└── updated_at (timestamp)
-
-sources
-├── id (uuid, PK)
-├── name (text, unique)
-├── base_url (text)
-├── status (enum: active, deprecated, unavailable)
-├── priority (integer)
-├── created_at (timestamp)
-└── updated_at (timestamp)
-
-manga_sources
-├── id (uuid, PK)
-├── manga_id (uuid, FK -> manga)
-├── source_id (uuid, FK -> sources)
-├── source_manga_id (text)
-├── url (text)
-├── priority (integer)
-├── last_checked (timestamp)
+├── total_chapters (integer, nullable)
+├── is_nsfw (boolean)
+├── source_name (text)
+├── source_id (text)
 ├── created_at (timestamp)
 └── updated_at (timestamp)
 
 chapters
 ├── id (uuid, PK)
 ├── manga_id (uuid, FK -> manga)
-├── source_id (uuid, FK -> sources)
 ├── number (decimal)
 ├── title (text, nullable)
 ├── release_date (timestamp, nullable)
 ├── images (jsonb)
 ├── created_at (timestamp)
+└── updated_at (timestamp)
+
+user_library
+├── user_id (uuid, FK -> users)
+├── manga_id (uuid, FK -> manga)
+├── status (enum: READING, COMPLETED, PLAN_TO_READ, DROPPED, ON_HOLD, nullable)
+├── rating (integer, nullable, 1-10)
+├── notes (text, nullable)
+├── current_chapter_id (uuid, FK -> chapters, nullable)
+├── last_read_at (timestamp, nullable)
+├── created_at (timestamp)
+├── updated_at (timestamp)
+└── PRIMARY KEY (user_id, manga_id)
+
+reading_history
+├── id (uuid, PK)
+├── user_id (uuid, FK -> users)
+├── manga_id (uuid, FK -> manga)
+├── chapter_id (uuid, FK -> chapters)
+├── chapter_number (decimal)
+├── completed (boolean)
+├── read_at (timestamp)
+├── created_at (timestamp)
+└── updated_at (timestamp)
+```
 └── updated_at (timestamp)
 
 user_library
