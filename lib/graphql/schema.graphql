@@ -1,0 +1,277 @@
+# Generated from Drizzle models - Keep in sync manually
+# Last updated: 2025-12-12
+
+# Base Schema - Root Types
+type Query {
+  _empty: String
+}
+
+type Mutation {
+  _empty: String
+}
+
+# User Domain - Authentication & Preferences
+type User {
+  id: ID!
+  email: String!
+  name: String
+  avatar: String
+  preferences: UserPreferences!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type UserPreferences {
+  notifications: NotificationPreferences!
+  reader: ReaderPreferences!
+}
+
+type NotificationPreferences {
+  email: Boolean!
+  push: Boolean!
+  maxPerDay: Int!
+}
+
+type ReaderPreferences {
+  imageWidth: ImageWidth!
+  spacing: Int!
+  theme: Theme!
+}
+
+# Enums
+enum ImageWidth {
+  FIT
+  FULL
+}
+
+enum Theme {
+  LIGHT
+  DARK
+  AUTO
+}
+
+# Content Domain - Manga & Chapters
+type Manga {
+  id: ID!
+  slug: String!
+  title: String!
+  altTitles: [String!]!
+  description: String
+  cover: String
+  status: MangaStatus!
+  genres: [String!]!
+  authors: [String!]!
+  year: Int
+  totalChapters: Int
+  isNsfw: Boolean!
+  sourceName: String!
+  sourceId: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Chapter {
+  id: ID!
+  mangaId: ID!
+  number: Float!
+  title: String
+  images: [ChapterImage!]!
+  releasedAt: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ChapterImage {
+  url: String!
+  originalUrl: String!
+  page: Int!
+  width: Int
+  height: Int
+}
+
+# Enums - Matching Drizzle exactly
+enum MangaStatus {
+  ONGOING
+  COMPLETED
+  HIATUS
+  CANCELLED
+}
+
+enum ReadingStatus {
+  READING
+  COMPLETED
+  PLAN_TO_READ
+  DROPPED
+  ON_HOLD
+}
+
+# Library Domain - User's Reading Progress
+type LibraryEntry {
+  userId: ID!
+  mangaId: ID!
+  status: ReadingStatus!
+  rating: Int
+  notes: String
+  currentChapterId: ID
+  lastReadAt: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ReadingHistory {
+  id: ID!
+  userId: ID!
+  mangaId: ID!
+  chapterId: ID!
+  chapterNumber: Float!
+  completed: Boolean!
+  readAt: String!
+}
+
+# Inputs
+input CreateUserInput {
+  email: String!
+  name: String
+  avatar: String
+  preferences: UserPreferencesInput
+}
+
+input UpdateUserInput {
+  name: String
+  avatar: String
+  preferences: UserPreferencesInput
+}
+
+input UserPreferencesInput {
+  notifications: NotificationPreferencesInput
+  reader: ReaderPreferencesInput
+}
+
+input NotificationPreferencesInput {
+  email: Boolean
+  push: Boolean
+  maxPerDay: Int
+}
+
+input ReaderPreferencesInput {
+  imageWidth: ImageWidth
+  spacing: Int
+  theme: Theme
+}
+
+input CreateMangaInput {
+  slug: String!
+  title: String!
+  altTitles: [String!]!
+  description: String
+  cover: String
+  status: MangaStatus!
+  genres: [String!]!
+  authors: [String!]!
+  year: Int
+  totalChapters: Int
+  isNsfw: Boolean!
+  sourceName: String!
+  sourceId: String!
+}
+
+input UpdateMangaInput {
+  slug: String
+  title: String
+  altTitles: [String!]
+  description: String
+  cover: String
+  status: MangaStatus
+  genres: [String!]
+  authors: [String!]
+  year: Int
+  totalChapters: Int
+  isNsfw: Boolean
+  sourceName: String
+  sourceId: String
+}
+
+input CreateChapterInput {
+  mangaId: ID!
+  number: Float!
+  title: String
+  releaseDate: String
+  images: [ChapterImageInput!]!
+}
+
+input UpdateChapterInput {
+  number: Float
+  title: String
+  releaseDate: String
+  images: [ChapterImageInput!]
+}
+
+input ChapterImageInput {
+  url: String!
+  originalUrl: String!
+  page: Int!
+  width: Int
+  height: Int
+}
+
+input MangaFilters {
+  status: MangaStatus
+  genres: [String!]
+  isNsfw: Boolean
+  year: Int
+}
+
+input UpdateLibraryEntryInput {
+  status: ReadingStatus
+  rating: Int
+  notes: String
+}
+
+# Queries
+extend type Query {
+  # Users
+  user(id: ID!): User
+  users(limit: Int, offset: Int): [User!]!
+  getProfile: User!
+
+  # Manga
+  manga(id: ID): Manga
+  mangaBySlug(slug: String!): Manga
+  mangas(limit: Int, offset: Int, filters: MangaFilters): [Manga!]!
+  searchManga(query: String!): [Manga!]!
+
+  # Chapters
+  chapter(id: ID!): Chapter
+  chapters(mangaId: ID!, limit: Int, offset: Int): [Chapter!]!
+
+  # Library
+  libraryEntry(userId: ID!, mangaId: ID!): LibraryEntry
+  library(userId: ID!): [LibraryEntry!]!
+  readingHistory(userId: ID!, limit: Int): [ReadingHistory!]!
+}
+
+# Mutations
+extend type Mutation {
+  # Users
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  deleteUser(id: ID!): Boolean!
+  updatePreferences(input: UserPreferencesInput!): User!
+
+  # Manga
+  createManga(input: CreateMangaInput!): Manga!
+  updateManga(id: ID!, input: UpdateMangaInput!): Manga!
+  deleteManga(id: ID!): Boolean!
+
+  # Chapters
+  createChapter(input: CreateChapterInput!): Chapter!
+  updateChapter(id: ID!, input: UpdateChapterInput!): Chapter!
+  deleteChapter(id: ID!): Boolean!
+
+  # Library
+  addToLibrary(mangaId: ID!): LibraryEntry!
+  updateLibraryEntry(mangaId: ID!, input: UpdateLibraryEntryInput!): LibraryEntry!
+  removeFromLibrary(mangaId: ID!): Boolean!
+  markChapterAsRead(chapterId: ID!): ReadingHistory!
+  updateReadingProgress(mangaId: ID!, chapterId: ID!): LibraryEntry!
+}

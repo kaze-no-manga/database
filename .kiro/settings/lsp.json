@@ -4,20 +4,9 @@
       "name": "jdtls",
       "command": "jdtls",
       "args": [],
-      "file_extensions": [
-        "java"
-      ],
-      "project_patterns": [
-        "pom.xml",
-        "build.gradle",
-        "build.gradle.kts",
-        ".project"
-      ],
-      "exclude_patterns": [
-        "**/target/**",
-        "**/build/**",
-        "**/.gradle/**"
-      ],
+      "file_extensions": ["java"],
+      "project_patterns": ["pom.xml", "build.gradle", "build.gradle.kts", ".project"],
+      "exclude_patterns": ["**/target/**", "**/build/**", "**/.gradle/**"],
       "source_patterns": [],
       "multi_workspace": false,
       "initialization_options": {
@@ -41,23 +30,10 @@
     "typescript": {
       "name": "typescript-language-server",
       "command": "typescript-language-server",
-      "args": [
-        "--stdio"
-      ],
-      "file_extensions": [
-        "ts",
-        "js",
-        "tsx",
-        "jsx"
-      ],
-      "project_patterns": [
-        "package.json",
-        "tsconfig.json"
-      ],
-      "exclude_patterns": [
-        "**/node_modules/**",
-        "**/dist/**"
-      ],
+      "args": ["--stdio"],
+      "file_extensions": ["ts", "js", "tsx", "jsx"],
+      "project_patterns": ["package.json", "tsconfig.json"],
+      "exclude_patterns": ["**/node_modules/**", "**/dist/**"],
       "source_patterns": [],
       "multi_workspace": false,
       "initialization_options": {
@@ -70,20 +46,10 @@
     "ruby": {
       "name": "solargraph",
       "command": "solargraph",
-      "args": [
-        "stdio"
-      ],
-      "file_extensions": [
-        "rb"
-      ],
-      "project_patterns": [
-        "Gemfile",
-        "Rakefile"
-      ],
-      "exclude_patterns": [
-        "**/vendor/**",
-        "**/tmp/**"
-      ],
+      "args": ["stdio"],
+      "file_extensions": ["rb"],
+      "project_patterns": ["Gemfile", "Rakefile"],
+      "exclude_patterns": ["**/vendor/**", "**/tmp/**"],
       "source_patterns": [],
       "multi_workspace": false,
       "initialization_options": {},
@@ -93,16 +59,9 @@
       "name": "gopls",
       "command": "gopls",
       "args": [],
-      "file_extensions": [
-        "go"
-      ],
-      "project_patterns": [
-        "go.mod",
-        "go.sum"
-      ],
-      "exclude_patterns": [
-        "**/vendor/**"
-      ],
+      "file_extensions": ["go"],
+      "project_patterns": ["go.mod", "go.sum"],
+      "exclude_patterns": ["**/vendor/**"],
       "source_patterns": [],
       "multi_workspace": false,
       "initialization_options": {
@@ -114,27 +73,10 @@
     "cpp": {
       "name": "clangd",
       "command": "clangd",
-      "args": [
-        "--background-index"
-      ],
-      "file_extensions": [
-        "cpp",
-        "cc",
-        "cxx",
-        "c",
-        "h",
-        "hpp",
-        "hxx"
-      ],
-      "project_patterns": [
-        "CMakeLists.txt",
-        "compile_commands.json",
-        "Makefile"
-      ],
-      "exclude_patterns": [
-        "**/build/**",
-        "**/cmake-build-**/**"
-      ],
+      "args": ["--background-index"],
+      "file_extensions": ["cpp", "cc", "cxx", "c", "h", "hpp", "hxx"],
+      "project_patterns": ["CMakeLists.txt", "compile_commands.json", "Makefile"],
+      "exclude_patterns": ["**/build/**", "**/cmake-build-**/**"],
       "source_patterns": [],
       "multi_workspace": false,
       "initialization_options": {},
@@ -144,15 +86,9 @@
       "name": "rust-analyzer",
       "command": "rust-analyzer",
       "args": [],
-      "file_extensions": [
-        "rs"
-      ],
-      "project_patterns": [
-        "Cargo.toml"
-      ],
-      "exclude_patterns": [
-        "**/target/**"
-      ],
+      "file_extensions": ["rs"],
+      "project_patterns": ["Cargo.toml"],
+      "exclude_patterns": ["**/target/**"],
       "source_patterns": [],
       "multi_workspace": false,
       "initialization_options": {
@@ -178,24 +114,10 @@
     "python": {
       "name": "pyright",
       "command": "pyright-langserver",
-      "args": [
-        "--stdio"
-      ],
-      "file_extensions": [
-        "py"
-      ],
-      "project_patterns": [
-        "pyproject.toml",
-        "setup.py",
-        "requirements.txt",
-        "pyrightconfig.json"
-      ],
-      "exclude_patterns": [
-        "**/__pycache__/**",
-        "**/venv/**",
-        "**/.venv/**",
-        "**/.pytest_cache/**"
-      ],
+      "args": ["--stdio"],
+      "file_extensions": ["py"],
+      "project_patterns": ["pyproject.toml", "setup.py", "requirements.txt", "pyrightconfig.json"],
+      "exclude_patterns": ["**/__pycache__/**", "**/venv/**", "**/.venv/**", "**/.pytest_cache/**"],
       "source_patterns": [],
       "multi_workspace": false,
       "initialization_options": {},

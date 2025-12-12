@@ -2,8 +2,9 @@
   "name": "@kaze-no-manga/database",
   "version": "0.0.0",
   "description": "📊 Database schema, migrations, and utilities for Kaze no Manga platform using Drizzle ORM and PostgreSQL",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
+    "prelint": "npm run build",
     "lint": "concurrently npm:lint:* --prefixColors auto",
     "lint:format": "biome check --write",
     "lint:lockfile": "lockfile-lint --path package-lock.json",
@@ -12,12 +13,32 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "posttest:coverage": "coverage-badge-readme",
-    "clean": "rimraf --glob ./{lib,scripts,test}/**/*.{d.ts,js} ./vitest*.{d.ts,js}",
+    "clean": "rimraf --glob ./{lib,scripts,test}/**/*.{d.ts,js} ./{drizzle.config,vitest}*.{d.ts,js}",
+    "prebuild": "npm run clean",
     "build": "tsc",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:generate": "drizzle-kit generate",
+    "db:generate:local": "DRIZZLE_LOCAL=true drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
-  "exports": {},
-  "files": [],
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./models": {
+      "types": "./lib/models/index.d.ts",
+      "import": "./lib/models/index.js"
+    },
+    "./graphql": "./lib/graphql/schema.graphql"
+  },
+  "files": [
+    "lib/",
+    "db/migrations/",
+    "drizzle.config.js"
+  ],
   "engines": {
     "node": ">= 20"
   },
@@ -69,6 +90,7 @@
     "@vitest/coverage-v8": "^4.0.15",
     "@zweer/coverage-badge-readme": "^1.2.2",
     "concurrently": "^9.2.1",
+    "drizzle-kit": "^1.0.0-beta.2-58a4521",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "lockfile-lint": "^4.14.1",
@@ -79,5 +101,13 @@
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.15"
-  }
+  },
+  "dependencies": {
+    "@aws-sdk/client-rds-data": "^3.948.0",
+    "@kaze-no-manga/models": "^1.0.0",
+    "drizzle-orm": "^1.0.0-beta.2-58a4521"
+  },
+  "workspaces": [
+    "aws"
+  ]
 }
