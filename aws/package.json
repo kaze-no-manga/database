@@ -1,0 +1,27 @@
+{
+  "name": "@kaze-no-manga/database-aws",
+  "version": "0.0.0",
+  "description": "Aurora Serverless v2 database infrastructure for Kaze no Manga",
+  "type": "module",
+  "scripts": {
+    "deploy": "cdk deploy --require-approval never"
+  },
+  "author": "Zweer <n.olivieriachille@gmail.com>",
+  "license": "MIT",
+  "bin": {
+    "aws": "bin/database.js"
+  },
+  "devDependencies": {
+    "aws-cdk": "2.1034.0"
+  },
+  "dependencies": {
+    "@kaze-no-manga/database": "file:..",
+    "aws-cdk-lib": "2.232.1",
+    "change-case": "^5.4.4",
+    "constructs": "^10.0.0",
+    "esbuild": "^0.27.1"
+  },
+  "directories": {
+    "lib": "lib"
+  }
+}

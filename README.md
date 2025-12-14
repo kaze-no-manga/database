@@ -14,8 +14,8 @@ This package provides the complete database schema and connection utilities for 
 - 📊 **Drizzle ORM**: Type-safe database schema
 - 🔄 **Migrations**: Version-controlled schema changes  
 - ☁️ **AWS Data API**: Serverless database connection
-- 🎯 **GraphQL Ready**: Schema aligned with GraphQL types
-- 🚀 **CDK Integration**: Deployed via AWS CDK
+- 🎯 **GraphQL Ready**: Schema for backend consumption
+- 🚀 **CDK Integration**: Aurora deployment
 
 ## Installation
 
@@ -53,10 +53,10 @@ import { db } from '@kaze-no-manga/database'
 // - RESOURCE_ARN: Aurora cluster ARN
 ```
 
-### GraphQL Schema
+### GraphQL Schema (for Backend)
 
 ```typescript
-// Import the GraphQL schema for AppSync
+// Import the GraphQL schema for AppSync (in backend package)
 import schema from '@kaze-no-manga/database/graphql'
 ```
 
@@ -89,6 +89,13 @@ npm run db:generate:local
 npm run db:generate
 ```
 
+### Deploy Database Infrastructure
+
+```bash
+cd aws
+npm run deploy  # Deploy Aurora + Migration Lambda
+```
+
 ### Other Commands
 
 ```bash
@@ -114,12 +121,12 @@ DRIZZLE_LOCAL=true  # Disables AWS Data API for migration generation
 
 ```
 ┌─────────────┐    ┌─────────────────┐    ┌─────────────┐
-│   AppSync   │    │   This Package  │    │   Aurora    │
-│  (GraphQL)  │────│   (Schema)      │────│ Serverless  │
+│   Backend   │    │   This Package  │    │   Aurora    │
+│  (AppSync)  │────│   (Schema)      │────│ Serverless  │
 └─────────────┘    └─────────────────┘    └─────────────┘
 ```
 
-This package provides the schema layer between AppSync GraphQL API and Aurora Serverless database, ensuring type safety and consistency across the entire stack.
+This package provides the database layer. The backend package imports the schema and creates the GraphQL API.
 
 ## License
 

@@ -13,7 +13,7 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "posttest:coverage": "coverage-badge-readme",
-    "clean": "rimraf --glob ./{lib,scripts,test}/**/*.{d.ts,js} ./{drizzle.config,vitest}*.{d.ts,js}",
+    "clean": "rimraf --glob ./{aws,lib,scripts,test}/**/*.{d.ts,js} ./{drizzle.config,vitest}*.{d.ts,js}",
     "prebuild": "npm run clean",
     "build": "tsc",
     "prepare": "husky",
@@ -104,10 +104,10 @@
   },
   "dependencies": {
     "@aws-sdk/client-rds-data": "^3.948.0",
-    "@kaze-no-manga/models": "^1.0.0",
     "drizzle-orm": "^1.0.0-beta.2-58a4521"
   },
   "workspaces": [
-    "aws"
+    "aws",
+    "aws/src"
   ]
 }

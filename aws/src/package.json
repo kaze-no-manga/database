@@ -1,0 +1,17 @@
+{
+  "name": "@kaze-no-manga/database-lambda",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@aws-lambda-powertools/logger": "^2.30.0",
+    "@aws-lambda-powertools/metrics": "^2.30.0",
+    "@aws-lambda-powertools/parameters": "^2.30.0",
+    "@aws-lambda-powertools/tracer": "^2.30.0",
+    "@aws-sdk/client-rds-data": "^3.948.0",
+    "@aws-sdk/client-secrets-manager": "^3.950.0",
+    "@aws-sdk/client-ssm": "^3.948.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.159"
+  }
+}
