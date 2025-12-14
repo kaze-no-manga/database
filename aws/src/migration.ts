@@ -36,7 +36,11 @@ export const handler = async (event: CloudFormationCustomResourceEvent, context:
 
     // Get migration files
     const migrationFiles = readdirSync('./db/migrations')
-      .filter((f) => f.endsWith('.sql'))
+      .flatMap((folder) =>
+        readdirSync(`./db/migrations/${folder}`)
+          .filter((file) => file.endsWith('.sql'))
+          .map((file) => `./db/migrations/${folder}/${file}`),
+      )
       .sort();
 
     logger.info('Migration status', {
