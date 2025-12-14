@@ -1,0 +1,16 @@
+name: Database Deploy
+
+on:
+  push:
+    branches: [main]
+    paths: ['database/**']
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: kaze-no-manga/.github/.github/workflows/aws-deploy.yml@main
+    with:
+      working-directory: database/aws
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

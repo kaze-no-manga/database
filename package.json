@@ -21,7 +21,8 @@
     "db:generate:local": "DRIZZLE_LOCAL=true drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "deploy": "npm run deploy -w aws"
   },
   "exports": {
     ".": {
