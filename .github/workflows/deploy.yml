@@ -2,8 +2,8 @@ name: Database Deploy
 
 on:
   push:
-    branches: [main]
-    paths: ['database/**']
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
