@@ -2,7 +2,7 @@ import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { CustomResource, Duration } from 'aws-cdk-lib';
+import { CustomResource, Duration, RemovalPolicy } from 'aws-cdk-lib';
 import { LoggingFormat } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import type { LogGroup } from 'aws-cdk-lib/aws-logs';
@@ -32,8 +32,9 @@ export class MigrationConstruct extends Construct {
 
     const migrationParam = new StringParameter(this, 'MigrationParameter', {
       parameterName: `/${kebabCase(PROJECT_NAME)}/db/migrations`,
-      stringValue: '',
+      stringValue: '0', // Initial migration version
     });
+    migrationParam.applyRemovalPolicy(RemovalPolicy.DESTROY);
 
     const migrationLambda = new NodejsFunction(this, 'MigrationLamda', {
       functionName: `${PROJECT_PREFIX}-migration`,
