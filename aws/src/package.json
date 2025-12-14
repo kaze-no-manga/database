@@ -2,6 +2,9 @@
   "name": "@kaze-no-manga/database-lambda",
   "version": "1.0.0",
   "type": "module",
+  "scripts": {
+    "deploy": "exit 0"
+  },
   "dependencies": {
     "@aws-lambda-powertools/logger": "^2.30.0",
     "@aws-lambda-powertools/metrics": "^2.30.0",
