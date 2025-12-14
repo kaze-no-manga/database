@@ -19,15 +19,19 @@ export const handler = async (event: CloudFormationCustomResourceEvent, context:
 
   logger.info('Migration event received', { event });
 
-  const { DATABASE_ARN, DATABASE_NAME, PARAM_NAME, SECRET_ARN } = process.env;
+  const {
+    DATABASE_ARN: resourceArn,
+    DATABASE_NAME: database,
+    PARAM_NAME: parameterName,
+    SECRET_ARN: secretArn,
+  } = process.env;
 
-  if (!DATABASE_ARN || !DATABASE_NAME || !PARAM_NAME || !SECRET_ARN) {
+  if (!resourceArn || !database || !parameterName || !secretArn) {
     throw new Error('Missing required environment variables');
   }
 
   try {
     // Get last applied migration from SSM
-    const parameterName = `/kaze-no-manga/db/last-migration`;
     const lastMigration = (await getParameter(parameterName)) ?? '';
 
     // Get migration files
@@ -75,9 +79,9 @@ export const handler = async (event: CloudFormationCustomResourceEvent, context:
         for (const [index, statement] of statements.entries()) {
           await client.send(
             new ExecuteStatementCommand({
-              resourceArn: DATABASE_ARN,
-              secretArn: SECRET_ARN,
-              database: DATABASE_NAME,
+              resourceArn,
+              secretArn,
+              database,
               sql: statement,
             }),
           );
